@@ -1,0 +1,25 @@
+div#inputWrapper {
+  width: 300px;
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+input#inputField {
+  padding: 5px;
+  margin: 5px;
+
+  border: 1px dashed #0086E6;
+  border-radius: 8px;
+}
+
+label#inputLabel {
+  font-family: sans-serif;
+  margin-left: 10px;
+  padding: 5px;
+
+  background-color: #0086e657;
+  border-radius: 10px;
+}

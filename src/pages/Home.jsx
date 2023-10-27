@@ -27,7 +27,7 @@ function Home() {
 
   return (
     <div>
-      <h2>Start new game!</h2>
+      <h2>Start new game!</h2> <br />
 
       <Input nameInput={"player1"} inputContent={"Player 1 (X)"} player={players["X"]} handleChoosePlayer={handleChoosePlayer}></Input>
       <Input nameInput={"player2"} inputContent={"Player 2 (O)"} player={players["O"]} handleChoosePlayer={handleChoosePlayer}></Input>

@@ -1,15 +1,10 @@
 import React from 'react'
+import "../css/button.css"
 
 function Button({ textContent, handleOnClick }) {
   return (
     <div>
-      <button style={{
-        borderRadius: "8px",
-        border: "3px solid #0086E6",
-        padding: "5px",
-        margin: "10px",
-        backgroundColor: "white"
-      }} onClick={() => handleOnClick()}>{textContent}</button>
+      <button id="customButton" onClick={() => handleOnClick()}>{textContent}</button>
     </div>
   )
 }

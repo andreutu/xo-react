@@ -21,8 +21,13 @@ function Home() {
   }
 
   const handleStartGame = () => {
-    handleSetPlayers(players);
-    navigate("/game");
+    if (!(players["X"].trim().length === 0 && players["O"].trim().length === 0)) {
+      alert("Input error!");
+      return;
+    } else {
+      handleSetPlayers(players);
+      navigate("/game");
+    }
   }
 
   return (

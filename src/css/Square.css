@@ -1,0 +1,10 @@
+#square {
+  width: 100px;
+  height: 100px;
+
+  background: white;
+  color: black;
+
+  font-size: 4em;
+  font-weight: lighter;
+}

@@ -18,15 +18,29 @@ const initialState = {
   winner: null
 }
 
+const winCases = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
+
+
 const reducer = (state, action) => {
   switch (action.type) {
     case actionTypes.SET_PLAYERS:
       return { ...state, players: action.payload };
+    case actionTypes.TOGGLE_PLAYER:
+      return { ...state, currentPlayer: state.currentPlayer === "X" ? "O" : "X" }
     case actionTypes.SET_BOARD:
       return { ...state, board: action.payload };
     default:
       return state;
-  } 
+  }
 }
 
 function GameProvider({ children }) {
@@ -36,11 +50,27 @@ function GameProvider({ children }) {
     dispatch({ type: actionTypes.SET_PLAYERS, payload: players });
   }
 
+  function handleTogglePlayer() {
+    dispatch({ type: actionTypes.TOGGLE_PLAYER });
+  }
+
   return (
-    <GameContext.Provider value={{state, dispatch, handleSetPlayers}}>
+    <GameContext.Provider value={{ state, dispatch, handleSetPlayers, handleTogglePlayer }}>
       {children}
     </GameContext.Provider>
   );
+}
+
+export function calculateWinner(squares) {
+  for (let i = 0; i < winCases.length; i++) {
+    const [a, b, c] = winCases[i];
+    
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+
+  return null;
 }
 
 export default GameProvider

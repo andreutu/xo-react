@@ -4,7 +4,6 @@ import Board from '../components/Board';
 
 function Game() {
   const { state, dispatch, handleSetPlayers } = useContext(GameContext);
-  console.log(state);
 
   return (
     <div>

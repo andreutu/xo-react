@@ -21,7 +21,7 @@ function Home() {
   }
 
   const handleStartGame = () => {
-    if (!(players["X"].trim().length === 0 && players["O"].trim().length === 0)) {
+    if (players["X"].length === 0 && players["O"].length === 0) {
       alert("Input error!");
       return;
     } else {

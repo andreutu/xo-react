@@ -38,6 +38,10 @@ const reducer = (state, action) => {
       return { ...state, currentPlayer: state.currentPlayer === "X" ? "O" : "X" }
     case actionTypes.SET_BOARD:
       return { ...state, board: action.payload };
+    case actionTypes.RESTART_GAME:
+      return initialState;
+    case actionTypes.RESET_GAME:
+      return { ...initialState, players: state.players, board: Array(9).fill(null) };
     default:
       return state;
   }

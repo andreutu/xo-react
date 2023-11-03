@@ -1,22 +1,24 @@
-import React, { useContext, useEffect, useState } from 'react'
-import Square from './Square'
-import { GameContext, calculateWinner } from '../context/GameContext';
+import React, { useContext, useEffect, useState } from "react";
+import Square from "./Square";
+import { GameContext, calculateWinner } from "../context/GameContext";
 
-import "../css/Board.css"
-import Button from './Button';
-import { useNavigate } from 'react-router-dom';
+import "../css/Board.css";
+import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
 function Board() {
-  const { state: { board, currentPlayer, players, winner }, dispatch, handleTogglePlayer } = useContext(GameContext);
-  const [squares, setSquares] = useState(board);
+  const {
+    state: { board, currentPlayer, players },
+    dispatch,
+    handleTogglePlayer,
+  } = useContext(GameContext);
+  const [squares, setSquares] = useState([...board]);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [equalOrWinner, setEqualOrWinner] = useState(null);
   const navigate = useNavigate();
 
-  let gameWon = false;
-
   function handleSquareClick(index) {
-    console.log("!!")
+    console.log("!!");
     if (squares[index]) {
       alert("Choose another position!");
       return;
@@ -37,42 +39,63 @@ function Board() {
     dispatch({ type: "RESET_GAME" });
     console.log(board);
     setSquares([...board]);
+    setButtonDisabled(false);
+    setEqualOrWinner(null);
   }
 
   useEffect(() => {
-    gameWon = calculateWinner(squares);
+    let gameWon = calculateWinner(squares);
+    console.log(gameWon);
 
     if (gameWon) {
       setButtonDisabled(true);
-      setEqualOrWinner("winner")
+      setEqualOrWinner(gameWon);
     }
 
     if (squares.every((element) => element !== null) && !gameWon) {
       setButtonDisabled(true);
-      setEqualOrWinner("equal")
+      setEqualOrWinner("equal");
     }
-
-  }, [squares])
+  }, [squares]);
 
   return (
     <div>
       <div id="board">
         {squares.map((element, index) => {
-          return <Square isButtonDisabled={buttonDisabled} value={element} onSquareClick={handleSquareClick} key={index} index={index} />
+          return (
+            <Square
+              isButtonDisabled={buttonDisabled}
+              value={element}
+              onSquareClick={handleSquareClick}
+              key={index}
+              index={index}
+            />
+          );
         })}
       </div>
 
-      {equalOrWinner === "winner" && <h1>Congratulations to {players[currentPlayer]} for winning as {currentPlayer}!</h1>}
+      {equalOrWinner !== null && equalOrWinner !== "equal" && (
+        <h1>
+          Congratulations to {players[equalOrWinner]} for winning as{" "}
+          {equalOrWinner}!
+        </h1>
+      )}
       {equalOrWinner === "equal" && <h1>It's a draw!</h1>}
 
-      {equalOrWinner &&
+      {equalOrWinner && (
         <>
-          <Button textContent={"Rematch?"} handleOnClick={handleRematchGame}></Button>
-          <Button textContent={"Reset?"} handleOnClick={handleRestartGame}></Button>
+          <Button
+            textContent={"Rematch?"}
+            handleOnClick={handleRematchGame}
+          ></Button>
+          <Button
+            textContent={"Reset?"}
+            handleOnClick={handleRestartGame}
+          ></Button>
         </>
-      }
+      )}
     </div>
-  )
+  );
 }
 
-export default Board
+export default Board;
